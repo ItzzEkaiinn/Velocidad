@@ -156,3 +156,33 @@ player.CharacterAdded:Connect(function()
 end)
 
 applySpeed(speed)
+local closeBtn = Instance.new("TextButton")
+closeBtn.Name = "CloseSpeedBtn"
+closeBtn.Size = UDim2.new(0,28,0,28) -- más pequeña
+closeBtn.Position = UDim2.new(1,-36,0,3)
+closeBtn.AnchorPoint = Vector2.new(0,0)
+closeBtn.BackgroundColor3 = Color3.fromRGB(255,50,50) -- rojo
+closeBtn.AutoButtonColor = false
+closeBtn.Text = "×"
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 20
+closeBtn.TextColor3 = Color3.fromRGB(255,255,255)
+closeBtn.ZIndex = 100
+closeBtn.Parent = frame
+
+local corner = Instance.new("UICorner", closeBtn)
+corner.CornerRadius = UDim.new(0,14) -- mantener forma circular
+
+closeBtn.MouseButton1Click:Connect(function()
+	local hum = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+	if hum then hum.WalkSpeed = baseSpeed end
+	screenGui:Destroy()
+end)
+
+closeBtn.InputBegan:Connect(function(i)
+	if i.UserInputType == Enum.UserInputType.Touch then
+		local hum = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+		if hum then hum.WalkSpeed = baseSpeed end
+		screenGui:Destroy()
+	end
+end)
